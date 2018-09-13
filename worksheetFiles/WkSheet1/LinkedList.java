@@ -48,6 +48,6 @@ public class LinkedList {
 
     System.out.printf ("sumWhile     = %d%n", sumWhile (data));
     System.out.printf ("sumFor       = %d%n", sumFor (data));
-    System.out.printf ("sumRecursive = %d%n", sumRecursive (data));
+    System.out.printf ("sumRecursive = %d%n", sumRecursive (data))
   }
 }
