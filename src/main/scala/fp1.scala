@@ -44,27 +44,36 @@ object fp1 {
   // hardcoding the numbers 1,2,4,24,120.
   val factTest : List[Int] = {
     // TODO: Change "Nil" to the correct answer.
-    Nil
+    var list = List[Int]()   
+    val input = List(1, 2, 3, 4, 5)
+    for (num <- input.reverse) list = fact(num) :: list
+    list
   }
 
   // EXERCISE 2: complete the following definition of the Fibonacci function.
   def fib (n : Int) : Int = {
     // TODO: Provide definition here.
-    -1
+    if (n == 0) {
+      0
+    } else if (n == 1) {
+      1
+    } else {
+      fib(n-1) + fib (n-2)
+    }
   }
 
   // EXERCISE 3: declare the identifier "p1" with a pair consisting of the Int 7 and the String
   // "hello"
   val p1 : (Int, String) = {
     // TODO: Provide definition here.
-    null
+    (7, "hello")
   }
 
   // EXERCISE 4: declare the identifier "t1" with a triple consisting of the Int 7, the String
   // "hello", and the Boolean false
   val t1 : (Int, String, Boolean) = {
     // TODO: Provide definition here.
-    null
+    (7, "hello", false)
   }
 
   // EXERCISE 5: write a function "swap" that takes a pair of an Int and a String, and returns a
@@ -73,7 +82,7 @@ object fp1 {
   // components of a pair.
   def swap (p:(Int,String)) : (String,Int) = {
     // TODO: Provide definition here.
-    null
+    (p._2, p._1)
   }
 
   // EXERCISE 6: write a function "sum" that takes a list of integers and sums them.  As with all of
@@ -81,7 +90,10 @@ object fp1 {
   // loop.
   def sum (xs : List[Int]) : Int = {
     // TODO: Provide definition here.
-    -1
+    xs match{
+      case notNil :: tail => notNil + sum(tail)
+      case Nil => 0
+    }
   }
 
   // EXERCISE 7: given the definition of the function "sumTailRecursiveAux" below, complete the
@@ -97,7 +109,7 @@ object fp1 {
 
   def sumTailRecursive (xs : List[Int]) : Int = {
     // TODO: Provide definition here.
-    -1
+    sumTailRecursiveAux(0, xs)
   }
 
   // EXERCISE 8: complete the following definition of the function "max" that finds the maximum
@@ -106,8 +118,19 @@ object fp1 {
   // loop.  You MUST NOT use the "max" method on lists, but can use the "max" method on integers.
   def max (xs : List[Int]) : Int = {
     // TODO: Provide definition here.
-    -1
-  }
+     def maxMatch(xs: List[Int], maxVal: Int): Int = {
+      xs match{
+        case List() => maxVal
+        case head :: tail => if (head > maxVal) {
+          maxMatch(tail, head)
+        } else {
+          maxMatch(tail, maxVal)
+        }
+      }
+    }
+    maxMatch(xs, xs.head)
+ }
+  
 
   // EXERCISE 9: given the definition of the function "maxTailRecursive" below, complete the
   // definition of the function "maxTailRecursiveAux" so that "maxTailRecursive" also finds the
@@ -115,7 +138,13 @@ object fp1 {
   // definition for "maxTailRecursiveAux" must be recursive and not use while loops.
   def maxTailRecursiveAux (accumulator : Int, xs : List[Int]) : Int = {
     // TODO: Provide definition here.
-    -1
+    if (xs.isEmpty) {
+      accumulator
+    } else if (xs.head > accumulator) {
+      maxTailRecursiveAux(xs.head, xs.tail)
+    } else {
+      maxTailRecursiveAux(accumulator, xs.tail)
+}
   }
 
   def maxTailRecursive (xs : List[Int]) : Int = {
@@ -130,7 +159,7 @@ object fp1 {
   // at both ends) one at a time.  If "start < end", the empty list must be returned.
   def otpu (start : Int, end : Int) : List[Int] = {
     // TODO: Provide definition here.
-    null
+    if (start < end) List() else start :: otpu(start - 1, end)
   }
 }
 
