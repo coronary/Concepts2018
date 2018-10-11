@@ -39,7 +39,11 @@ object fp3 {
   // - member (3, List (4, 6, 8, 5)) == false
   def member (a : Int, xs : List[Int]) : Boolean = {
     // TODO: Provide definition here.
-    false
+    xs match {
+    case Nil => false
+    case head::tail if head == a => true
+    case head::tail => member(a,tail)
+    }
   }
 
   // EXERCISE 2: complete the following recursive definition of an "allEqual" function
@@ -53,7 +57,12 @@ object fp3 {
   // - allEqual (List (5, 5, 5, 6)) == false
   def allEqual (xs : List[Int]) : Boolean = {
     // TODO: Provide definition here.
-    false
+    xs match {
+    case Nil => true
+    case head::tail if tail == Nil => true
+    case head::tail if head == tail.head => allEqual(tail)
+    case head::tail if head != tail => false
+    }
   }
 
   // EXERCISE 3: complete the definition of the following function that computes the length of
@@ -66,7 +75,7 @@ object fp3 {
   // of the List class.
   def stringLengths (xs:List[String]) : List[(String, Int)] = {
     // TODO: Provide definition here.
-    null
+    for (x <- xs) yield (x, x.length)
   }
 
   // EXERCISE 4: complete the function definition for "delete1" that takes
@@ -77,7 +86,11 @@ object fp3 {
   // - delete1 ("the", List ("the","the","was","a","product","of","the","1980s")) == List ("was","a","product","of","1980s")
   def delete1 [X] (x:X, ys:List[X]) : List[X] = {
     // TODO: Provide definition here.
-    null
+    ys match {
+      case Nil => Nil
+      case head::tail if x == head => delete1(x, tail)
+      case head::tail if x != head => head :: delete1(x,tail)
+    }
   }
 
   // EXERCISE 5: complete the function definition for "delete2" below.  It must 
@@ -85,7 +98,7 @@ object fp3 {
   // and not use recursion explicitly.
   def delete2 [X] (x:X, ys:List[X]) : List[X] = {
     // TODO: Provide definition here.
-    null
+    for(y <- ys; if (y != x)) yield y
   }
 
   // EXERCISE 6: complete the function definition for "delete3" below.  It must 
@@ -93,7 +106,7 @@ object fp3 {
   // builtin "filter" method for Lists and not use recursion explicitly.
   def delete3 [X] (x:X, ys:List[X]) : List[X] = {
     // TODO: Provide definition here.
-    null
+    ys.filter(_!=x)
   }
 
   // EXERCISE 7: complete the function definition for "removeDupes1" below.
@@ -105,7 +118,12 @@ object fp3 {
   // - removeDupes1 (List (1,1,2,3,3,3,4,4,5,6,7,7,8,9,2,2,2,9)) == List (1,2,3,4,5,6,7,8,9,2,9)
   def removeDupes1 [X] (xs:List[X]) : List[X] = {
     // TODO: Provide definition here.
-    null
+    xs match {
+      case Nil => Nil
+      case head::tail if tail == Nil => head :: Nil
+      case head::tail if head != tail.head => head :: removeDupes1(tail)
+      case head::tail if head == tail.head => removeDupes1(tail)
+    }
   }
 
 
@@ -151,7 +169,10 @@ object fp3 {
   // - allDistinct (List (1,2,3,2,4,5)) == false
   def allDistinct (xs : List[Int]) : Boolean = {
     // TODO: Provide definition here.
-    false
+    xs match {
+      case Nil => true
+      case head::tail => if (member(head,tail)) false else allDistinct(tail)
+    }
   }
 }
 
