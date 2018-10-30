@@ -37,7 +37,7 @@ object storage {
   // whenever it is invoked.
   val constant5 : () => Int = {
     // TODO: Complete the definition.
-    null
+	5;
   }
 
   // EXERCISE 2: Complete the following definition, so that "constant" is a function that when
