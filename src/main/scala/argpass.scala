@@ -43,6 +43,8 @@ object argpass {
   // f will update the integer stored in the instances of RefInt it is given.
   // Your code must return a tuple of the three integers provided by f in the order that they came back from calls, i.e., the integer from the first call to f is the first integer in the returned tuple.
   def refint1 (f : RefInt => Unit) : (Int, Int, Int) = {
+	val r = new RefInt(0);
+	f(r).get :: f(r).get :: f(r).get;
     // TODO: Provide definition here.
     // Example call:
     // val r = new RefInt (0)

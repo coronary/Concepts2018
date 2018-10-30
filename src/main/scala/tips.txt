@@ -1,0 +1,7 @@
+Tips from Prof Joe:
+
+- Make pointer in the loop to point at the intermediate nodes while building the list
+- malloc for it within the for loop Struct Node* next = (struct Node*)malloc(sizeof(struct Node))
+- make copy of string instead of pointing to string. Need to malloc for string 
+	-use strlen for malloc for string. malloc(strlen(arg[i]+1)). Use plus one because strings end with null character
+
