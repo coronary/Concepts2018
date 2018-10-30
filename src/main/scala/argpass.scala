@@ -44,13 +44,14 @@ object argpass {
   // Your code must return a tuple of the three integers provided by f in the order that they came back from calls, i.e., the integer from the first call to f is the first integer in the returned tuple.
   def refint1 (f : RefInt => Unit) : (Int, Int, Int) = {
 	val r = new RefInt(0);
-	f(r).get :: f(r).get :: f(r).get;
-    // TODO: Provide definition here.
-    // Example call:
-    // val r = new RefInt (0)
-    // f (r)
-    // val n : Int = r.get
-    (-1, -1, -1)
+        f(r);
+        val r1:Int = r.get;
+        f(r);
+        val r2:Int = r.get;
+        f(r);
+        val r3:Int = r.get;
+
+        (r1, r2, r3);
   }
 
   // EXERCISE 2: complete the following higher-order function.
@@ -62,7 +63,13 @@ object argpass {
   // Your code must return a tuple of the three integers provided by f in the order that they came back from calls, i.e., the integer from the first call to f is the first integer in the returned tuple.
   def refint2 (f : RefInt => Unit) : (Int, Int, Int) = {
     // TODO: Provide definition here.
-    (-1, -1, -1)
+    val r = new RefInt(0);
+    val r1 = new RefInt(0);
+    val r2 = new RefInt(0);
+    f(r);
+    f(r1);
+    f(r2);
+    (r.get, r1.get, r2.get);
   }
 
   // EXERCISE 3: complete the following function.
@@ -70,7 +77,10 @@ object argpass {
   // Your code must increment (add 1 to) the RefInt it receives and return double the original value (stored in a separate RefInt instance) as the result.
   def refint3 (r : RefInt) : RefInt = {
     // TODO: Provide definition here.
-    null
+    val num : Int = r.get;
+    r.set(num+1);
+    new RefInt(num*2);
+    
   }
 
   // EXERCISE 4: complete the following function.
@@ -80,8 +90,9 @@ object argpass {
   // Your code must call f with a *copy* of the RefInt r, i.e., it must make a new instance of RefInt with the same Int.
   // Your code should return true if f has NOT changed the Int stored in the copy of r.  Otherwise it should return false.
   def refint4 (r : RefInt, f : RefInt => Unit) : Boolean = {
-    // TODO: Provide definition here.
-    false
+    val r1 = new RefInt(r.get);
+    f(r1);
+    if(r1.get == r.get) true else false;
   }
 
   // EXERCISE 5: complete the following function.
@@ -90,7 +101,7 @@ object argpass {
   // Note that this is the Scala List type, which is immutable!
   // You can assume that the list you receive is not empty.
   def refint5 (xs : List[RefInt]) : Unit = {
-    // TODO: Provide definition here.
+    for (r <- xs) r.set((r.get) + 1);
   }
 }
 
